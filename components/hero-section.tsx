@@ -68,9 +68,9 @@ export function HeroSection() {
             scrollToCourse();
             playClick();
           }}
-          className=" flex items-center text-md  bg-yellow-500 hover:bg-amber-600 border-3 border-black px-4 py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] cursor-pointer "
+          className=" flex items-center text-xl  bg-yellow-500 hover:bg-amber-600 click-animation-3d"
         >
-          START LEARNING FREE
+          START LEARNING
         </Button>
       </div>
     </section>

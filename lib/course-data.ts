@@ -1,3 +1,13 @@
+import {
+  Bolt,
+  ChartScatter,
+  Hand,
+  Infinity as InfinityIcon,
+  Repeat2,
+  SquareMousePointer,
+  Target,
+} from "lucide-react";
+
 export interface Lesson {
   id: number;
   title: string;
@@ -13,7 +23,7 @@ export const courseData = [
     id: 1,
     title: "Hello World",
     description: "Learn the basics of Java and write your first program!",
-    icon: "👋",
+    icon: Hand,
     lessons: [
       {
         id: 1,
@@ -76,7 +86,7 @@ export const courseData = [
     id: 2,
     title: "Variables",
     description: "Store and manipulate data with variables",
-    icon: "📦",
+    icon: SquareMousePointer,
     lessons: [
       {
         id: 5,
@@ -139,7 +149,7 @@ export const courseData = [
     id: 3,
     title: "Control Flow",
     description: "Make decisions with if statements and switches",
-    icon: "🔀",
+    icon: Repeat2,
     lessons: [
       {
         id: 9,
@@ -213,7 +223,7 @@ export const courseData = [
     id: 4,
     title: "Loops",
     description: "Repeat code efficiently with loops",
-    icon: "🔁",
+    icon: InfinityIcon,
     lessons: [
       {
         id: 14,
@@ -288,7 +298,7 @@ export const courseData = [
     id: 5,
     title: "Arrays",
     description: "Work with collections of data",
-    icon: "📊",
+    icon: ChartScatter,
     lessons: [
       {
         id: 19,
@@ -351,7 +361,7 @@ export const courseData = [
     id: 6,
     title: "Methods",
     description: "Create reusable blocks of code",
-    icon: "⚙️",
+    icon: Bolt,
     lessons: [
       {
         id: 23,
@@ -425,7 +435,7 @@ export const courseData = [
     id: 7,
     title: "Classes & Objects",
     description: "Master object-oriented programming basics",
-    icon: "🎯",
+    icon: Target,
     lessons: [
       {
         id: 28,

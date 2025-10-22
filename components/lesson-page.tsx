@@ -14,6 +14,9 @@ import {
   Flame,
   RotateCcw,
   Heart,
+  Target,
+  CircleX,
+  House,
 } from "lucide-react";
 import { useProgress } from "@/hooks/use-progress";
 import { useSound } from "@/hooks/use-sound";
@@ -35,8 +38,6 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
     completedLessons,
     xp,
     level,
-    addXP,
-    streak,
     energy,
     loseEnergy,
     energyRegenTime,
@@ -197,22 +198,23 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900">
+    <div className="min-h-screen bg-[#020617]">
       {/* Header */}
       <div className="border-b-4 border-yellow-400 bg-black/60 backdrop-blur sticky top-0 z-10 shadow-[0_4px_0px_0px_rgba(0,0,0,1)]">
         <div className="container mx-auto px-4 py-3 md:py-4">
           <div className="flex items-center justify-between mb-2">
-            <Link href="/">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="pixel-text hover:bg-yellow-400/20 transition-colors border-2 border-yellow-400/50 text-yellow-400"
-                onClick={playClick}
-              >
-                <ArrowLeft className="w-4 h-4 mr-1" />
-                <span className="hidden sm:inline">BACK</span>
-              </Button>
-            </Link>
+            <Button
+              variant="ghost"
+              size="sm"
+              className=" pixel-text hover:bg-yellow-400/20 transition-colors border-2 border-yellow-400/50 text-yellow-400 cursor-pointer hover:text-white "
+              onClick={() => {
+                playClick?.();
+                router.back(); // 👈 this goes to the previous page
+              }}
+            >
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              <span className="hidden sm:inline">BACK</span>
+            </Button>
             <div className="flex items-center gap-3 text-xs md:text-sm font-bold pixel-text">
               <div
                 className={`flex flex-col items-center gap-1 text-red-400 ${
@@ -275,7 +277,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
       {/* Content */}
       <div className="container mx-auto px-4 py-6 md:py-8 max-w-4xl">
         {!showQuiz ? (
-          <Card className="p-6 md:p-8 border-4 border-cyan-400 pixel-card hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all bg-gradient-to-br from-indigo-950 to-purple-950 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <Card className="p-6 md:p-8 border-4 border-cyan-400 pixel-card hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all bg-indigo-950  shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
             <div className="mb-6">
               <h1 className="text-2xl md:text-4xl font-bold pixel-text mb-2 text-yellow-400 drop-shadow-[3px_3px_0px_rgba(0,0,0,1)]">
                 {showTypewriter ? (
@@ -314,8 +316,8 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
               )}
 
               {content.keyPoints && (
-                <div className="my-6 bg-gradient-to-br from-pink-900/40 to-purple-900/40 border-4 border-pink-400 rounded p-4 hover:from-pink-900/60 hover:to-purple-900/60 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                  <h3 className="text-base md:text-lg font-bold pixel-text mb-3 flex items-center gap-2 text-pink-400">
+                <div className="my-6 bg-[#16476A] border-4 border-yellow-400 rounded p-4 hover:from-pink-900/60 hover:to-purple-900/60 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                  <h3 className="text-base md:text-lg font-bold pixel-text mb-3 flex items-center gap-2 text-yellow-400">
                     <Sparkles className="w-5 h-5" />
                     KEY POINTS:
                   </h3>
@@ -325,7 +327,9 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                         key={index}
                         className="flex items-start gap-2 text-white"
                       >
-                        <span className="text-pink-400 mt-1 font-bold">▸</span>
+                        <span className="text-yellow-400 mt-1 font-bold">
+                          ▸
+                        </span>
                         <span>{point}</span>
                       </li>
                     ))}
@@ -341,7 +345,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                     onClick={handlePrevious}
                     size="lg"
                     variant="outline"
-                    className="flex-1 border-4 border-cyan-400 text-cyan-400 hover:bg-cyan-400/20 retro-button pixel-text text-sm md:text-base bg-transparent"
+                    className="flex-1 border-4 border-cyan-400 text-cyan-400 hover:bg-cyan-400/20 retro-button pixel-text text-sm md:text-base bg-transparent cursor-pointer"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     PREVIOUS
@@ -352,7 +356,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                   onClick={handleRetakeLesson}
                   size="lg"
                   disabled={energy === 0}
-                  className="flex-1 bg-purple-400 text-black hover:bg-purple-300 retro-button pixel-text text-sm md:text-base hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                  className="flex-1 bg-purple-400 text-black hover:bg-purple-300 retro-button pixel-text text-sm md:text-base hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0pwerx_0pwerx_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4 mr-2" />
 
@@ -363,7 +367,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                   onClick={handleStartQuiz}
                   size="lg"
                   disabled={energy === 0}
-                  className="flex-1 bg-yellow-400 text-black hover:bg-yellow-300 retro-button pixel-text text-sm md:text-base hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-yellow-400 text-black hover:bg-yellow-300 retro-button pixel-text text-sm md:text-base hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {energy === 0 ? "NOT ENOUGH ENERGY" : "TAKE THE QUIZ "}
                 </Button>
@@ -375,7 +379,8 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
             <div className="mb-6">
               <div className="flex items-center justify-between mb-2">
                 <h2 className="text-xl md:text-3xl font-bold pixel-text text-orange-400 drop-shadow-[3px_3px_0px_rgba(0,0,0,1)]">
-                  QUIZ TIME! 🎯
+                  QUIZ TIME!
+                  <Target className="inline-block w-6 h-6 text-orange-400 -mt-2" />
                 </h2>
                 <div className="text-right">
                   <p className="text-xs text-orange-300 pixel-text font-bold">
@@ -416,7 +421,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
 
               {showHint && content.quiz.hint && (
                 <div className="mb-4 p-3 bg-yellow-400/20 border-2 border-yellow-400 rounded text-sm text-yellow-100 animate-in slide-in-from-top duration-300">
-                  💡 {content.quiz.hint}
+                  {content.quiz.hint}
                 </div>
               )}
 
@@ -457,7 +462,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                 onClick={handleSubmitAnswer}
                 disabled={selectedAnswer === null}
                 size="lg"
-                className="w-full bg-cyan-400 text-black hover:bg-cyan-300 retro-button pixel-text text-sm md:text-base disabled:opacity-50 hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                className="w-full bg-cyan-400 text-black hover:bg-cyan-300 retro-button pixel-text text-sm md:text-base disabled:opacity-50 hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] cursor-pointer"
               >
                 SUBMIT ANSWER
               </Button>
@@ -475,12 +480,14 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                       <>
                         <CheckCircle2 className="w-5 h-5 text-green-400 animate-bounce" />
                         <span className="font-bold pixel-text text-green-400 text-sm md:text-base">
-                          CORRECT! 🎉
+                          CORRECT!
                         </span>
                       </>
                     ) : (
                       <>
-                        <span className="text-xl animate-bounce">❌</span>
+                        <span className="text-xl animate-bounce">
+                          <CircleX className="w-5 h-5 text-red-400" />
+                        </span>
                         <span className="font-bold pixel-text text-red-400 text-sm md:text-base">
                           INCORRECT
                         </span>
@@ -504,7 +511,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                 <Button
                   onClick={handleNext}
                   size="lg"
-                  className="w-full bg-yellow-400 text-black hover:bg-yellow-300 retro-button pixel-text text-sm md:text-base hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px]"
+                  className="w-full bg-yellow-400 text-black hover:bg-yellow-300 retro-button pixel-text text-sm md:text-base hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] cursor-pointer"
                 >
                   {nextLesson ? (
                     <>
@@ -512,7 +519,10 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </>
                   ) : (
-                    "BACK TO HOME 🏠"
+                    <>
+                      BACK TO HOME
+                      <House className="w-4 h-4 " />
+                    </>
                   )}
                 </Button>
               </div>

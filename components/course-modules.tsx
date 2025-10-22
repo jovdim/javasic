@@ -106,13 +106,13 @@ export function CourseModules() {
       completedLessons.includes(lesson.id)
     );
   };
-
   return (
     <div className="space-y-3 md:space-y-4" id="course-curriculum">
       <h2 className="text-2xl md:text-3xl font-bold pixel-text mb-4 md:mb-6 text-yellow-400 drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
         COURSE CURRICULUM
       </h2>
       {courseData.map((module, index) => {
+        const Icon = module.icon;
         const isExpanded = expandedModules.includes(module.id);
         const isUnlocked = isModuleUnlocked(index);
         const isPreviewing = previewingModule === module.id;
@@ -144,7 +144,7 @@ export function CourseModules() {
                     isHovered ? "scale-110 rotate-6" : ""
                   }`}
                 >
-                  {module.icon || index + 1}
+                  <Icon className="w-8 h-8 text-cyan-400" />
                 </div>
                 <div className="text-left">
                   <h3 className="text-lg md:text-2xl font-bold pixel-text text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
@@ -263,7 +263,7 @@ export function CourseModules() {
                               <Button
                                 size="sm"
                                 onClick={playClick}
-                                className="bg-purple-400 hover:bg-purple-500 border-3 border-black text-black font-bold text-xs md:text-sm pixel-text shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
+                                className="bg-purple-400 hover:bg-purple-500 pixel-text click-animation-3d"
                               >
                                 <Play className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
                                 <span className="hidden sm:inline">RETAKE</span>
@@ -282,7 +282,7 @@ export function CourseModules() {
                             <Button
                               size="sm"
                               onClick={playClick}
-                              className="bg-yellow-400 hover:bg-yellow-500 border-3 border-black text-black font-bold text-xs md:text-sm pixel-text shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
+                              className="bg-yellow-400 hover:bg-yellow-500 click-animation-3d pxclick-animation-3d pixel-text "
                             >
                               <Play className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
                               <span className="hidden sm:inline">START</span>

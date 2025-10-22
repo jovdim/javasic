@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/navbar";
-import { Certificate } from "@/components/certificate";
 import {
   CheckCircle2,
   XCircle,
@@ -16,7 +15,6 @@ import {
 export default function ResultsPage() {
   const router = useRouter();
   const [results, setResults] = useState<any>(null);
-  const [showCertificate, setShowCertificate] = useState(false);
   const [expandedQuestions, setExpandedQuestions] = useState<number[]>([]);
 
   useEffect(() => {
@@ -36,7 +34,7 @@ export default function ResultsPage() {
 
   if (!results) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#020617]  flex items-center justify-center p-4">
         <div className="text-white text-lg font-semibold">
           Loading results...
         </div>
@@ -46,16 +44,10 @@ export default function ResultsPage() {
 
   const { score, correct, total, questions, userAnswers, passed } = results;
 
-  if (showCertificate && passed) {
-    return (
-      <Certificate score={score} onClose={() => setShowCertificate(false)} />
-    );
-  }
-
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 pt-20">
+      <div className="min-h-screen bg-[#020617]  p-4 pt-20">
         <div className="max-w-4xl mx-auto">
           {/* Results Header */}
           <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-slate-700">
@@ -77,10 +69,18 @@ export default function ResultsPage() {
               <h1 className="text-2xl font-bold text-white mb-3">
                 {passed ? "Congratulations!" : "Assessment Complete"}
               </h1>
-
+              <div
+                className={`inline-block px-4 py-2 rounded-lg border-2 font-black text-lg mb-4 ${
+                  passed
+                    ? "bg-green-500/20 border-green-500 text-green-400"
+                    : "bg-red-500/20 border-red-500 text-red-400"
+                }`}
+              >
+                {passed ? "PASSED" : "FAILED"}
+              </div>
               <div className="flex items-center justify-center gap-6 mb-4">
                 <div className="text-center">
-                  <div className="text-3xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                  <div className="text-3xl font-black bg-yellow-500 bg-clip-text text-transparent">
                     {score.toFixed(1)}%
                   </div>
                   <p className="text-slate-400 text-sm">Score</p>
@@ -130,31 +130,6 @@ export default function ResultsPage() {
               <div className="text-slate-400 text-xs mt-1">Accuracy</div>
             </div>
           </div>
-
-          {/* Certificate CTA */}
-          {passed && (
-            <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-xl p-4 mb-6">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold text-lg">🏆</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-semibold text-base truncate">
-                    Earn Your Certificate
-                  </h3>
-                  <p className="text-slate-400 text-xs truncate">
-                    Download your professional certificate
-                  </p>
-                </div>
-              </div>
-              <Button
-                onClick={() => setShowCertificate(true)}
-                className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 rounded-xl text-base"
-              >
-                View Certificate
-              </Button>
-            </div>
-          )}
 
           {/* Detailed Results */}
           <div className="bg-slate-800/60 rounded-2xl p-4 border border-slate-700 mb-6">
@@ -279,7 +254,7 @@ export default function ResultsPage() {
           <div className="flex flex-col gap-3">
             <Button
               onClick={() => router.push("/")}
-              className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 text-base"
+              className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 text-base click-animation-3d"
             >
               <Home className="w-4 h-4" />
               Back to Home

@@ -143,7 +143,7 @@ export default function FinalTestPage() {
 
   if (!progress.isLoaded) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#020617] flex items-center justify-center">
         <div className="text-white text-2xl font-bold pixel-text animate-pulse">
           Loading...
         </div>
@@ -153,7 +153,7 @@ export default function FinalTestPage() {
 
   if (allCompleted && questions.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#020617] to-slate-900 flex items-center justify-center">
         <div className="text-white text-2xl font-bold pixel-text animate-pulse">
           Preparing your test...
         </div>
@@ -165,15 +165,15 @@ export default function FinalTestPage() {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 pt-20">
+        <div className="min-h-screen bg-[#020617] flex items-center justify-center p-4 pt-20">
           <div className="max-w-2xl w-full bg-slate-800/90 backdrop-blur-sm border-2 border-cyan-400 rounded-xl p-8 shadow-2xl shadow-cyan-500/20">
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-3 mb-4">
-                <div className="w-3 h-8 bg-cyan-400 rounded-full animate-pulse"></div>
-                <h1 className="text-5xl font-black bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent pixel-text">
+                <div className="w-3 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
+                <h1 className="text-5xl font-black bg-red-700  bg-clip-text text-transparent pixel-text">
                   FINAL BOSS BATTLE
                 </h1>
-                <div className="w-3 h-8 bg-purple-400 rounded-full animate-pulse"></div>
+                <div className="w-3 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
               </div>
               <p className="text-cyan-300 font-bold text-lg mb-2 tracking-wide">
                 PROVE YOUR JAVA MASTERY
@@ -183,7 +183,7 @@ export default function FinalTestPage() {
             <div className="space-y-6 text-white mb-8">
               <div className="text-center">
                 <div className="inline-block bg-gradient-to-r from-green-500 to-emerald-500 text-slate-900 px-6 py-3 rounded-full font-black text-xl mb-4 shadow-lg">
-                  🎓 CONGRATULATIONS, CODER!
+                  CONGRATULATIONS, CODER!
                 </div>
                 <p className="text-lg text-slate-300">
                   You've conquered all lessons. Now face the ultimate challenge!
@@ -224,13 +224,6 @@ export default function FinalTestPage() {
                     <span className="font-semibold">Certificate Reward</span>
                   </div>
                 </div>
-
-                <div className="mt-6 p-4 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 rounded-lg">
-                  <div className="flex items-center gap-2 text-emerald-400 font-black">
-                    <span>🏆</span>
-                    <span>UNLOCK YOUR CERTIFICATE UPON VICTORY!</span>
-                  </div>
-                </div>
               </div>
 
               <p className="text-center text-cyan-300 font-bold text-lg">
@@ -240,9 +233,9 @@ export default function FinalTestPage() {
 
             <Button
               onClick={handleStart}
-              className="w-full bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-black text-xl py-6 rounded-xl transform hover:scale-105 transition-all duration-200 shadow-lg shadow-cyan-500/25 border-0"
+              className="click-animation-3d w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl border-0 shadow-lg shadow-green-500/25 text-xl"
             >
-              🚀 ACCEPT CHALLENGE
+              ACCEPT CHALLENGE
             </Button>
           </div>
         </div>
@@ -252,7 +245,7 @@ export default function FinalTestPage() {
 
   if (questions.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br bg-[#020617]">
         <div className="text-white text-xl font-bold">
           Loading Battle Arena...
         </div>
@@ -267,7 +260,7 @@ export default function FinalTestPage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 pt-24">
+      <div className="min-h-screen bg-[#020617] p-4 pt-24">
         <div className="max-w-4xl mx-auto">
           {/* Header Stats */}
           <div className="bg-slate-800/80 backdrop-blur-sm border-2 border-cyan-500/50 rounded-xl p-4 mb-6 shadow-lg">
@@ -327,7 +320,7 @@ export default function FinalTestPage() {
                     className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 group ${
                       userAnswers[currentQuestion] === index
                         ? "bg-gradient-to-r from-cyan-500 to-cyan-600 border-cyan-400 text-white font-bold shadow-lg shadow-cyan-500/25 transform scale-102"
-                        : "bg-slate-900/80 border-slate-600 text-slate-300 hover:border-cyan-400/50 hover:bg-slate-800/80 hover:transform hover:scale-101"
+                        : "bg-slate-900/80 border-slate-600 text-slate-300 hover:border-cyan-400/50 hover:bg-slate-800/80 hover:transform hover:scale-101 cursor-pointer"
                     }`}
                   >
                     <div className="flex items-center gap-4">
@@ -353,7 +346,7 @@ export default function FinalTestPage() {
             <Button
               onClick={handlePrevious}
               disabled={currentQuestion === 0}
-              className="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl border-2 border-slate-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl border-2 border-slate-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all click-animation-3d"
             >
               ← Previous
             </Button>
@@ -361,15 +354,15 @@ export default function FinalTestPage() {
             {currentQuestion === questions.length - 1 ? (
               <Button
                 onClick={handleSubmit}
-                className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 rounded-xl border-0 transform hover:scale-105 transition-all shadow-lg shadow-green-500/25"
+                className="flex-1 bg-yellow-400 hover:bg-yellow-500 font-bold py-4 rounded-xl border-0 transform hover:scale-105 transition-all shadow-lg shadow-green-500/25 click-animation-3d "
               >
-                🏁 Submit Test
+                SUBMIT TEST
               </Button>
             ) : (
               <Button
                 onClick={handleNext}
                 disabled={userAnswers[currentQuestion] === -1}
-                className="flex-1 bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-bold py-4 rounded-xl border-0 transform hover:scale-105 transition-all disabled:opacity-50 disabled:transform-none shadow-lg shadow-cyan-500/25"
+                className="flex-1 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 rounded-xl border-0 transform hover:scale-105 transition-all disabled:opacity-50 disabled:transform-none shadow-lg shadow-cyan-500/25 click-animation-3d"
               >
                 Next Question →
               </Button>

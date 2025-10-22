@@ -8,7 +8,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Copy, Check, Search, X } from "lucide-react";
@@ -25,13 +24,21 @@ interface CheatItem {
   code: string;
 }
 
+type Category =
+  | "basics"
+  | "controlFlow"
+  | "loops"
+  | "arrays"
+  | "methods"
+  | "oop";
+
 export function CheatSheetModal({ isOpen, onClose }: CheatSheetModalProps) {
   const { playClick } = useSound();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState("basics");
+  const [activeCategory, setActiveCategory] = useState<Category>("basics");
 
-  const cheatSheetData: Record<string, CheatItem[]> = {
+  const cheatSheetData: Record<Category, CheatItem[]> = {
     basics: [
       {
         title: "Hello World",
@@ -156,13 +163,57 @@ export function CheatSheetModal({ isOpen, onClose }: CheatSheetModalProps) {
     ],
   };
 
+  const categories: { key: Category; label: string }[] = [
+    { key: "basics", label: "Basics" },
+    { key: "controlFlow", label: "Control Flow" },
+    { key: "loops", label: "Loops" },
+    { key: "arrays", label: "Arrays" },
+    { key: "methods", label: "Methods" },
+    { key: "oop", label: "OOP" },
+  ];
+
   const copyToClipboard = (code: string, title: string) => {
     playClick();
-    navigator.clipboard.writeText(code);
-    setCopiedCode(title);
-    setTimeout(() => setCopiedCode(null), 2000);
-  };
 
+    const fallbackCopy = (text: string) => {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand("copy");
+        return true;
+      } catch (err) {
+        return false;
+      } finally {
+        document.body.removeChild(textArea);
+      }
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard
+        .writeText(code)
+        .then(() => {
+          setCopiedCode(title);
+          setTimeout(() => setCopiedCode(null), 2000);
+        })
+        .catch(() => {
+          if (fallbackCopy(code)) {
+            setCopiedCode(title);
+            setTimeout(() => setCopiedCode(null), 2000);
+          } else {
+            alert("Failed to copy code. Please select and copy manually.");
+          }
+        });
+    } else {
+      if (fallbackCopy(code)) {
+        setCopiedCode(title);
+        setTimeout(() => setCopiedCode(null), 2000);
+      } else {
+        alert("Failed to copy code. Please select and copy manually.");
+      }
+    }
+  };
   const filterItems = (items: CheatItem[]) => {
     if (!searchQuery) return items;
     return items.filter(
@@ -177,29 +228,30 @@ export function CheatSheetModal({ isOpen, onClose }: CheatSheetModalProps) {
     setSearchQuery("");
   };
 
-  // Get all filtered items for search across all tabs
+  // Get all filtered items for search across all categories
   const getAllFilteredItems = () => {
     return Object.values(cheatSheetData).flatMap(filterItems);
   };
 
   const isSearching = searchQuery.length > 0;
   const allSearchResults = getAllFilteredItems();
+  const currentItems = cheatSheetData[activeCategory];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl max-h-[95vh] bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 border-2 border-yellow-400 shadow-lg mx-2 sm:mx-4">
+      <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl max-h-[95vh] bg-[#020617] border-2 border-yellow-400 shadow-lg mx-2 sm:mx-4">
         <DialogHeader className="space-y-3 sm:space-y-4">
           <div className="flex items-center justify-between">
             <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-400">
-              JAVA CHEAT SHEET 📖
+              JAVA CHEAT SHEET
             </DialogTitle>
             <Button
               variant="ghost"
               size="icon"
               onClick={onClose}
-              className="h-8 w-8 sm:h-10 sm:w-10 text-white hover:bg-white/20 rounded-lg"
+              className="h-8 w-8 sm:h-10 sm:w-10 bg-gray-300 hover:bg-white rounded-lg click-animation-3d"
             >
-              <X className="h-4 w-4 sm:h-5 sm:w-5" />
+              <X className="h-7 w-7 text-bold" />
             </Button>
           </div>
 
@@ -225,82 +277,61 @@ export function CheatSheetModal({ isOpen, onClose }: CheatSheetModalProps) {
           </div>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="flex flex-wrap gap-2 bg-white/10 p-2 border border-white/20 rounded-lg mb-4">
-            <TabsTrigger
-              value="basics"
-              className="px-3 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-yellow-400 data-[state=active]:text-purple-900 data-[state=active]:font-bold transition-all hover:bg-white/20"
-            >
-              Basics
-            </TabsTrigger>
-            <TabsTrigger
-              value="controlFlow"
-              className="px-3 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-yellow-400 data-[state=active]:text-purple-900 data-[state=active]:font-bold transition-all hover:bg-white/20"
-            >
-              Control Flow
-            </TabsTrigger>
-            <TabsTrigger
-              value="loops"
-              className="px-3 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-yellow-400 data-[state=active]:text-purple-900 data-[state=active]:font-bold transition-all hover:bg-white/20"
-            >
-              Loops
-            </TabsTrigger>
-            <TabsTrigger
-              value="arrays"
-              className="px-3 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-yellow-400 data-[state=active]:text-purple-900 data-[state=active]:font-bold transition-all hover:bg-white/20"
-            >
-              Arrays
-            </TabsTrigger>
-            <TabsTrigger
-              value="methods"
-              className="px-3 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-yellow-400 data-[state=active]:text-purple-900 data-[state=active]:font-bold transition-all hover:bg-white/20"
-            >
-              Methods
-            </TabsTrigger>
-            <TabsTrigger
-              value="oop"
-              className="px-3 py-2 text-xs sm:text-sm rounded-md data-[state=active]:bg-yellow-400 data-[state=active]:text-purple-900 data-[state=active]:font-bold transition-all hover:bg-white/20"
-            >
-              OOP
-            </TabsTrigger>
-          </TabsList>
+        {/* Custom Category Navigation - Much more control! */}
+        <div className="w-full mb-4">
+          <div className="flex flex-wrap gap-2 bg-white/10 p-2 border border-white/20 rounded-lg">
+            {categories.map((category) => (
+              <button
+                key={category.key}
+                onClick={() => {
+                  playClick();
+                  setActiveCategory(category.key);
+                }}
+                className={`px-4 py-2 text-sm rounded-md transition-all cursor-pointer whitespace-nowrap flex-1 min-w-[120px] text-center ${
+                  activeCategory === category.key
+                    ? "bg-yellow-400 text-black font-bold shadow-lg"
+                    : "text-white hover:bg-white/20"
+                }`}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-          <ScrollArea className="h-[50vh] sm:h-[55vh] pr-2 sm:pr-4">
-            {isSearching ? (
-              // Search results view
-              <div className="space-y-4">
-                {allSearchResults.length > 0 ? (
-                  allSearchResults.map((item, index) => (
-                    <CheatItemCard
-                      key={`search-${index}`}
-                      item={item}
-                      copiedCode={copiedCode}
-                      onCopy={copyToClipboard}
-                    />
-                  ))
-                ) : (
-                  <div className="text-center py-8 text-white/60 text-sm sm:text-base">
-                    No results found for "{searchQuery}"
-                  </div>
-                )}
-              </div>
-            ) : (
-              // Regular tab view
-              Object.entries(cheatSheetData).map(([key, items]) => (
-                <TabsContent key={key} value={key} className="space-y-4 mt-0">
-                  {filterItems(items).map((item, index) => (
-                    <CheatItemCard
-                      key={index}
-                      item={item}
-                      copiedCode={copiedCode}
-                      onCopy={copyToClipboard}
-                    />
-                  ))}
-                </TabsContent>
-              ))
-            )}
-          </ScrollArea>
-        </Tabs>
+        <ScrollArea className="h-[50vh] sm:h-[55vh] pr-2 sm:pr-4">
+          {isSearching ? (
+            // Search results view
+            <div className="space-y-4">
+              {allSearchResults.length > 0 ? (
+                allSearchResults.map((item, index) => (
+                  <CheatItemCard
+                    key={`search-${index}`}
+                    item={item}
+                    copiedCode={copiedCode}
+                    onCopy={copyToClipboard}
+                  />
+                ))
+              ) : (
+                <div className="text-center py-8 text-white/60 text-sm sm:text-base">
+                  No results found for "{searchQuery}"
+                </div>
+              )}
+            </div>
+          ) : (
+            // Regular category view
+            <div className="space-y-4">
+              {filterItems(currentItems).map((item, index) => (
+                <CheatItemCard
+                  key={index}
+                  item={item}
+                  copiedCode={copiedCode}
+                  onCopy={copyToClipboard}
+                />
+              ))}
+            </div>
+          )}
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

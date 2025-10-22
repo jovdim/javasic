@@ -18,6 +18,11 @@ import {
   LucideCrown,
   Settings,
   Settings2,
+  Repeat,
+  Infinity,
+  ChartNetwork,
+  ChartGantt,
+  ChartColumnDecreasing,
 } from "lucide-react";
 import { useProgress } from "@/hooks/use-progress";
 import { useSound } from "@/hooks/use-sound";
@@ -53,7 +58,7 @@ export function ProgressStats() {
       name: "Hello World Master",
       description: "Complete all Hello World lessons",
       benefit: "Unlocks confidence!",
-      icon: <Star className="h-12 w-12 fill-amber-400" />,
+      icon: <Star className="h-12 w-12 text-white" />,
       color: "from-yellow-400 to-yellow-600",
       unlocked: badges.includes("module-1"),
     },
@@ -62,7 +67,7 @@ export function ProgressStats() {
       name: "Variable Expert",
       description: "Master all variable types",
       benefit: "IDOL LOPET!!!",
-      icon: <Box className="h-12 w-12 fill-amber-700 " />,
+      icon: <Box className="h-12 w-12 text-white " />,
       color: "from-blue-400 to-blue-600",
       unlocked: badges.includes("module-2"),
     },
@@ -71,7 +76,7 @@ export function ProgressStats() {
       name: "Control Flow Pro",
       description: "Complete control flow module",
       benefit: "Unlocks advanced patterns",
-      icon: "🔀",
+      icon: <Repeat className="h-12 w-12 text-white " />,
       color: "from-purple-400 to-purple-600",
       unlocked: badges.includes("module-3"),
     },
@@ -80,7 +85,7 @@ export function ProgressStats() {
       name: "Loop Legend",
       description: "Master all loop types",
       benefit: "+15 XP bonus",
-      icon: "🔄",
+      icon: <Infinity className="h-12 w-12 text-white" />,
       color: "from-green-400 to-green-600",
       unlocked: badges.includes("module-4"),
     },
@@ -89,7 +94,7 @@ export function ProgressStats() {
       name: "Array Architect",
       description: "Complete array module",
       benefit: "Unlocks data structures",
-      icon: "📊",
+      icon: <ChartColumnDecreasing className="h-12 w-12 text-white" />,
       color: "from-orange-400 to-orange-600",
       unlocked: badges.includes("module-5"),
     },
@@ -98,7 +103,7 @@ export function ProgressStats() {
       name: "Method Master",
       description: "Master method creation",
       benefit: "+20 XP bonus",
-      icon: <Settings className="h-12 w-12 fill-gray-300 " />,
+      icon: <Settings className="h-12 w-12 text-white " />,
       color: "from-cyan-400 to-cyan-600",
       unlocked: badges.includes("module-6"),
     },
@@ -107,7 +112,7 @@ export function ProgressStats() {
       name: "OOP Champion",
       description: "Complete OOP module",
       benefit: "Unlocks advanced Java",
-      icon: <Settings2 className="h-12 w-12 fill-cyan-500 " />,
+      icon: <Settings2 className="h-12 w-12 text-white " />,
       color: "from-pink-400 to-pink-600",
       unlocked: badges.includes("module-7"),
     },
@@ -116,7 +121,7 @@ export function ProgressStats() {
       name: "Java Master",
       description: "Complete ALL lessons!",
       benefit: "Ultimate bragging rights!",
-      icon: <LucideCrown className="h-12 w-12 fill-yellow-600 " />,
+      icon: <LucideCrown className="h-12 w-12 text-white" />,
       color: "from-yellow-300 via-yellow-400 to-orange-500",
       unlocked: badges.includes("master"),
     },
@@ -154,7 +159,7 @@ export function ProgressStats() {
             <div className="h-4 bg-black/30 rounded-full overflow-hidden border-2 border-black">
               <div
                 className={`h-full transition-all duration-500 ease-out ${
-                  energy >=  7
+                  energy >= 7
                     ? "bg-cyan-500"
                     : energy > 4
                     ? "bg-yellow-300"
@@ -340,13 +345,13 @@ export function ProgressStats() {
           <Button
             onClick={handleCheatSheetClick}
             disabled={!allLessonsCompleted}
-            className={`w-full  text-sm font-bold border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all ${
+            className={`w-full  text-sm font-bold click-animation-3d ${
               allLessonsCompleted
-                ? "bg-yellow-400 text-white hover:bg-yellow-300"
+                ? "bg-yellow-500 text-white hover:bg-yellow-600"
                 : "bg-black/40 text-white/60 cursor-not-allowed"
             }`}
           >
-            {allLessonsCompleted ? "OPEN CHEAT SHEET" : "🔒 LOCKED"}
+            {allLessonsCompleted ? "OPEN CHEAT SHEET" : "LOCKED"}
           </Button>
         </Card>
 
@@ -377,7 +382,7 @@ export function ProgressStats() {
             <Link href="/final-test">
               <Button
                 onClick={playClick}
-                className="w-full  text-sm font-bold border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all bg-white text-black hover:bg-yellow-100"
+                className="w-full  text-sm font-bold click-animation-3d bg-white hover:bg-gray-200"
               >
                 START FINAL TEST
               </Button>

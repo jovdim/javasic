@@ -271,3 +271,21 @@
 .border-3 {
   border-width: 3px;
 }
+
+/* click animation */
+.click-animation-3d {
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 1);
+  border: 3px solid black;
+}
+
+.click-animation-3d:hover {
+  transform: translateX(1px) translateY(1px);
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.click-animation-3d:active {
+  transform: translateX(2px) translateY(2px) scale(0.95);
+  box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 1);
+}
