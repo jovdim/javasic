@@ -29,6 +29,7 @@ import { useSound } from "@/hooks/use-sound";
 import { courseData } from "@/lib/course-data";
 import { CheatSheetModal } from "@/components/cheat-sheet-modal";
 import Link from "next/link";
+import { useTranslations } from "@/lib/use-translations";
 
 export function ProgressStats() {
   const {
@@ -51,6 +52,7 @@ export function ProgressStats() {
   const xpForNextLevel = level * 100;
   const xpProgress = ((xp % 100) / 100) * 100;
   const allLessonsCompleted = completedLessons.length === totalLessons;
+  const { t } = useTranslations();
 
   const badgeData = [
     {
@@ -146,7 +148,7 @@ export function ProgressStats() {
             <div className="flex items-center gap-2">
               <Zap className="w-5 h-5 md:w-6 md:h-6 " />
               <h3 className="text-lg md:text-xl font-bold pixel-text text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-                ENERGY
+                {t("energy")}
               </h3>
             </div>
             <div className="text-right bg-black/20 px-3 py-1 rounded border-2 border-black">
@@ -183,7 +185,7 @@ export function ProgressStats() {
             <div className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-black" />
               <h3 className="text-lg md:text-xl font-bold pixel-text text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-                {allLessonsCompleted ? "MAX LEVEL!" : `LEVEL ${level}`}
+                {allLessonsCompleted ? t("maxLevel") : `LEVEL ${level}`}
               </h3>
             </div>
             <div className="text-right bg-black/20 px-3 py-1 rounded border-2 border-black">
@@ -240,12 +242,12 @@ export function ProgressStats() {
             <div className="flex items-center gap-2">
               <Flame className="w-5 h-5 md:w-6 md:h-6 text-black" />
               <h3 className="text-lg md:text-xl font-bold pixel-text text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-                STREAK
+                {t("streak")}
               </h3>
             </div>
             <div className="text-right bg-black/20 px-3 py-1 rounded border-2 border-black">
               <p className="text-base md:text-lg font-bold text-white">
-                {streak} DAYS
+                {streak} {t("days")}
               </p>
             </div>
           </div>
@@ -258,7 +260,7 @@ export function ProgressStats() {
                 ? "ON FIRE! Keep it up!"
                 : streak >= 3
                 ? "Great streak!"
-                : " Start your streak today!"}
+                : t("startStreak")}
             </p>
           </div>
         </Card>
@@ -268,13 +270,13 @@ export function ProgressStats() {
           <div className="flex items-center gap-2 mb-4">
             <Target className="w-5 h-5 md:w-6 md:h-6 text-black" />
             <h3 className="text-lg md:text-xl font-bold pixel-text text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-              PROGRESS
+              {t("progress")}
             </h3>
           </div>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-sm text-white/80 font-bold">
-                Lessons Done
+                {t("lessonCompleted")}
               </span>
               <span className="text-base md:text-lg font-bold text-white bg-black/20 px-3 py-1 rounded border-2 border-black">
                 {completedLessons.length}/{totalLessons}
@@ -296,7 +298,7 @@ export function ProgressStats() {
           <div className="flex items-center gap-2 mb-4">
             <Award className="w-5 h-5 md:w-6 md:h-6 text-black" />
             <h3 className="text-lg md:text-xl font-bold pixel-text text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-              BADGES
+              {t("badges")}
             </h3>
           </div>
           <div className="grid grid-cols-4 gap-2 md:gap-3 mb-3">
@@ -334,13 +336,13 @@ export function ProgressStats() {
           <div className="flex items-center gap-2 mb-3">
             <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-black" />
             <h3 className="text-base md:text-lg font-bold pixel-text text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-              CHEAT SHEET
+              {t("cheatSheet")}
             </h3>
           </div>
           <p className="text-xs md:text-sm text-white/80 mb-3 font-bold">
             {allLessonsCompleted
               ? "Unlocked! Quick Java reference"
-              : "Complete all lessons to unlock!"}
+              : t("cheatSheetDesc")}
           </p>
           <Button
             onClick={handleCheatSheetClick}
@@ -370,13 +372,11 @@ export function ProgressStats() {
               }`}
             />
             <h3 className="text-lg md:text-xl font-bold pixel-text text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]">
-              FINAL TEST
+              {t("finalTest")}
             </h3>
           </div>
           <p className="text-xs md:text-sm text-white/90 mb-3 font-bold">
-            {allLessonsCompleted
-              ? " Ready to prove your mastery? Take the final comprehensive test and earn your certificate!"
-              : " Complete all lessons to unlock the final test and earn your certificate!"}
+            {allLessonsCompleted ? t("finalTestReady") : t("finalTestLocked")}
           </p>
           {allLessonsCompleted ? (
             <Link href="/final-test">
@@ -384,7 +384,7 @@ export function ProgressStats() {
                 onClick={playClick}
                 className="w-full  text-sm font-bold click-animation-3d bg-white hover:bg-gray-200"
               >
-                START FINAL TEST
+                {t("startFinalTest")}
               </Button>
             </Link>
           ) : (
@@ -392,7 +392,7 @@ export function ProgressStats() {
               disabled
               className="w-full text-sm font-bold border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-black/40 text-white/60 cursor-not-allowed"
             >
-              LOCKED
+              {t("locked")}
             </Button>
           )}
           {!allLessonsCompleted && (

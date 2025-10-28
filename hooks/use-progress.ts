@@ -21,7 +21,7 @@ export function useProgress() {
     xp: 0,
     level: 1,
     badges: [],
-    streak: 0,
+    streak: 1,
     lastVisit: new Date().toDateString(),
     energy: 10,
     lastEnergyUpdate: Date.now(),

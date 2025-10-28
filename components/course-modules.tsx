@@ -15,7 +15,8 @@ import {
 import { useProgress } from "@/hooks/use-progress";
 import { useSound } from "@/hooks/use-sound";
 import Link from "next/link";
-import { courseData } from "@/lib/course-data";
+import { useCourseContent } from "@/hooks/use-course-content";
+import { useTranslations } from "@/lib/use-translations";
 
 export function CourseModules() {
   const [expandedModules, setExpandedModules] = useState<number[]>([1]);
@@ -23,6 +24,8 @@ export function CourseModules() {
   const [previewingModule, setPreviewingModule] = useState<number | null>(null);
   const { completedLessons } = useProgress();
   const { playClick } = useSound();
+  const { courseData } = useCourseContent();
+  const { t } = useTranslations();
 
   const moduleColors = [
     {
@@ -266,7 +269,9 @@ export function CourseModules() {
                                 className="bg-purple-400 hover:bg-purple-500 pixel-text click-animation-3d"
                               >
                                 <Play className="w-3 h-3 md:w-4 md:h-4 md:mr-1" />
-                                <span className="hidden sm:inline">RETAKE</span>
+                                <span className="hidden sm:inline">
+                                  {t("retake")}
+                                </span>
                               </Button>
                             </Link>
                           </div>

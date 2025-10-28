@@ -20,12 +20,11 @@ import {
 } from "lucide-react";
 import { useProgress } from "@/hooks/use-progress";
 import { useSound } from "@/hooks/use-sound";
-import { courseData } from "@/lib/course-data";
-import { lessonContent } from "@/lib/lesson-content";
 import { TypewriterText } from "@/components/typewriter-text";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import { useCourseContent } from "@/hooks/use-course-content";
+import { useTranslations } from "@/lib/use-translations";
 interface LessonPageProps {
   moduleId: number;
   slug: string;
@@ -50,7 +49,8 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
     playToggleHint,
     playSelect,
   } = useSound();
-
+  const { courseData, lessonContent } = useCourseContent();
+  const { t } = useTranslations();
   const [showQuiz, setShowQuiz] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -360,7 +360,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                 >
                   <RotateCcw className="w-4 h-4 mr-2" />
 
-                  {energy === 0 ? "NOT ENOUGH ENERGY" : "RETAKE QUIZ "}
+                  {energy === 0 ? t("notEnoughEnergy") : "RETAKE QUIZ "}
                 </Button>
               ) : (
                 <Button
@@ -369,7 +369,7 @@ export function LessonPage({ moduleId, slug }: LessonPageProps) {
                   disabled={energy === 0}
                   className="flex-1 bg-yellow-400 text-black hover:bg-yellow-300 retro-button pixel-text text-sm md:text-base hover:scale-105 transition-transform border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  {energy === 0 ? "NOT ENOUGH ENERGY" : "TAKE THE QUIZ "}
+                  {energy === 0 ? t("notEnoughEnergy") : "TAKE THE QUIZ "}
                 </Button>
               )}
             </div>

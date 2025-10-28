@@ -2,10 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { useSound } from "@/hooks/use-sound";
+import { useTranslations } from "@/lib/use-translations";
 import { Coffee } from "lucide-react";
 
 export function HeroSection() {
   const { playClick } = useSound();
+
+  const { t } = useTranslations();
+
   const scrollToCourse = () => {
     document
       .getElementById("course-curriculum")
@@ -49,7 +53,7 @@ export function HeroSection() {
         <div className="flex items-center gap-2 mb-4">
           <Coffee className="w-5 h-5 md:w-6 md:h-6 text-primary" />
           <span className="text-xs md:text-sm font-bold text-muted-foreground uppercase tracking-wider pixel-text">
-            Learn Java Fundamentals
+            {t("startLearning")}
           </span>
         </div>
 
@@ -58,8 +62,7 @@ export function HeroSection() {
         </h1>
 
         <p className="text-base md:text-xl text-foreground/90 mb-6 md:mb-8 max-w-2xl font-medium">
-          Master Java fundamentals through gamified lessons and quizzes. No
-          coding required - just learn, answer, and level up!
+          {t("heroDescription")}
         </p>
 
         <Button
@@ -70,7 +73,7 @@ export function HeroSection() {
           }}
           className=" flex items-center text-xl  bg-yellow-500 hover:bg-amber-600 click-animation-3d"
         >
-          START LEARNING
+          {t("startLearning")}
         </Button>
       </div>
     </section>

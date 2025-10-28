@@ -1,12 +1,14 @@
 "use client";
 
-import { Coffee, Flame, Zap } from "lucide-react";
+import { Coffee, Flame, Zap, Globe } from "lucide-react";
 import { useProgress } from "@/hooks/use-progress";
 import { useSound } from "@/hooks/use-sound";
 import Link from "next/link";
+import { useLanguage } from "@/hooks/use-language";
 
 export function Navbar() {
   const { streak, energy } = useProgress();
+  const { language, toggleLanguage } = useLanguage();
 
   return (
     <nav className="sticky top-0 z-50 border-b-4 border-border bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 shadow-lg">
@@ -24,8 +26,19 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Stats */}
+          {/* Stats and Language Toggle */}
           <div className="flex items-center gap-3 md:gap-6">
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 bg-blue-500 border-3 border-black px-3 py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:bg-blue-600 transition-colors cursor-pointer"
+            >
+              <Globe className="w-4 h-4 text-white" />
+              <span className="font-bold pixel-text text-white text-sm">
+                {language === "en" ? "EN" : "TL"}
+              </span>
+            </button>
+
             {/* Streak */}
             <div className="flex items-center gap-2 bg-orange-500 border-3 border-black px-3 py-1.5 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
               <Flame className="w-5 h-5 text-white animate-pulse" />

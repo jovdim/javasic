@@ -8,6 +8,7 @@ import { useProgress } from "@/hooks/use-progress";
 import { lessonContent } from "@/lib/lesson-content";
 import { useSound } from "@/hooks/use-sound";
 import { Navbar } from "@/components/navbar";
+import { useCourseContent } from "@/hooks/use-course-content";
 
 export default function FinalTestPage() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function FinalTestPage() {
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes
   const [questions, setQuestions] = useState<any[]>([]);
-
+  const { lessonContent } = useCourseContent();
   const totalLessons = 32;
   const allCompleted = progress.completedLessons.length >= totalLessons;
 
@@ -171,7 +172,7 @@ export default function FinalTestPage() {
               <div className="inline-flex items-center gap-3 mb-4">
                 <div className="w-3 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
                 <h1 className="text-5xl font-black bg-red-700  bg-clip-text text-transparent pixel-text">
-                  FINAL BOSS BATTLE
+                  FINAL TEST
                 </h1>
                 <div className="w-3 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
               </div>
