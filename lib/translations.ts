@@ -29,6 +29,15 @@ export const translations = {
     finalTestLocked: "Complete all lessons to unlock the final test!",
     startFinalTest: "START FINAL TEST",
     locked: "LOCKED",
+    howToPlay: "How to Play",
+    howToPlayTitle: "HOW TO PLAY",
+    howToPlayDesc0: 'Click the "START LEARNING" to start learning',
+    howToPlayDesc1: "Complete lessons to earn XP and level up",
+    howToPlayDesc2: "Answer quiz questions correctly to progress",
+    howToPlayDesc3: "Manage your energy - it regenerates over time",
+    howToPlayDesc4: "Maintain streaks for bonus XP",
+    howToPlayDesc5: "Unlock badges as you complete modules",
+    gotIt: "GOT IT!",
   },
   tl: {
     startLearning: "MAGSIMULANG MAG-ARAL",
@@ -60,6 +69,17 @@ export const translations = {
       "Tapusin ang lahat ng aralin para mabuksan ang pangwakas na pagsusulit!",
     startFinalTest: "SIMULAN ANG PANGWAKAS NA PAGSUSULIT",
     locked: "NAKASARA",
-    // Add more translations as needed
+    howToPlay: "Paano Laruin",
+    howToPlayTitle: "PAANO LARUIN",
+    howToPlayDesc0:
+      'Pindutin ang button na "MAGSIMULANG MAGARAL" na button para ikaw ay makapag start na sa pag-aaral ',
+    howToPlayDesc1:
+      "Kumpletuhin ang mga lesson para kumita ng XP at umangat ng level",
+    howToPlayDesc2: "Sagutin nang tama ang mga quiz question para mag-progress",
+    howToPlayDesc3:
+      "Pamahalaan ang iyong energy - ito ay nagre-regenerate sa paglipas ng oras",
+    howToPlayDesc4: "Panatilihin ang streaks para sa bonus na XP",
+    howToPlayDesc5: "I-unlock ang badges habang kinukumpleto mo ang mga module",
+    gotIt: "OKAY SIGE!",
   },
 };
